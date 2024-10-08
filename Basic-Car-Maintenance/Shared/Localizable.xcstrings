@@ -1317,9 +1317,6 @@
         }
       }
     },
-    "Congratulations! 🎉 🚙" : {
-
-    },
     "Continue" : {
       "localizations" : {
         "fa" : {
@@ -2791,9 +2788,6 @@
         }
       }
     },
-    "From now on, next screen will be the main app screen." : {
-      "comment" : "Shows popup when completed Onboarding tutorial"
-    },
     "GitHub Repo" : {
       "comment" : "Link to the Basic Car Maintenance GitHub repo.",
       "localizations" : {
@@ -3108,9 +3102,6 @@
           }
         }
       }
-    },
-    "Locally Saved Vehicle" : {
-
     },
     "Logged in anonymously with ID: %@" : {
       "localizations" : {
@@ -5749,12 +5740,6 @@
           }
         }
       }
-    },
-    "Vehicle %@" : {
-
-    },
-    "Vehicle %@ cannot be empty! 🚗" : {
-
     },
     "Vehicle Color" : {
       "localizations" : {

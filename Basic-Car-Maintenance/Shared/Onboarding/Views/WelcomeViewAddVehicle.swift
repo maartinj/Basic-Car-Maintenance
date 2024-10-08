@@ -12,7 +12,7 @@ import FirebaseFirestore
 struct WelcomeViewAddVehicle: View {
     @Environment(\.dismiss) var dismiss
     @State private var viewModel: SettingsViewModel
-    
+
     // Existing properties
     @AppStorage("isFirstTime") private var isFirstTime: Bool = true
     @State private var vehicleName: String = ""
@@ -30,7 +30,7 @@ struct WelcomeViewAddVehicle: View {
         case emptyModel
         case vehicleAdded(name: String)
         case error(message: String)
-        
+
         var title: String {
             switch self {
             case .emptyName, .emptyMake, .emptyModel:
@@ -41,7 +41,7 @@ struct WelcomeViewAddVehicle: View {
                 return "Error"
             }
         }
-        
+
         var message: String? {
             switch self {
             case .emptyName:
@@ -88,12 +88,12 @@ struct WelcomeViewAddVehicle: View {
             )
         }
     }
-    
+
     private var headerView: some View {
         VStack {
-            Text("Add the details below about ") +
-            Text("your vehicle")
-                .foregroundStyle(Color("basicGreen"))
+            Text(
+                "Add the details below about \(Text("your vehicle").foregroundStyle(Color("basicGreen")))"
+            )
         }
         .font(.largeTitle)
         .bold()
@@ -101,13 +101,13 @@ struct WelcomeViewAddVehicle: View {
         .padding(.top, 65)
         .padding(.bottom, 15)
     }
-    
+
     private var vehicleDetailsView: some View {
         VStack(spacing: 20) {
             Image(systemName: "car.side.lock.open")
                 .font(.system(size: 45))
                 .foregroundStyle(Color("basicGreen"))
-            
+
             VStack(spacing: 0) {
                 vehicleDetailRow(title: "Name", text: $vehicleName)
                     .padding(.bottom, 10)
@@ -124,7 +124,7 @@ struct WelcomeViewAddVehicle: View {
         }
         .padding(.horizontal, 15)
     }
-    
+
     private func vehicleDetailRow(title: String, text: Binding<String>) -> some View {
         LabeledContent {
             TextField("Vehicle \(title)", text: text)
@@ -137,13 +137,13 @@ struct WelcomeViewAddVehicle: View {
         }
         .showClearButton(text)
     }
-    
+
     private var bottomText: some View {
         Text("You can edit more data about the vehicle in the 'Settings' tab.")
             .foregroundStyle(.gray)
             .padding(.horizontal, 25)
     }
-    
+
     private var addVehicleButton: some View {
         Button {
             addVehicle()
@@ -159,7 +159,7 @@ struct WelcomeViewAddVehicle: View {
         .padding(15)
         .padding(.horizontal, 15)
     }
-    
+
     private func addVehicle() {
         if vehicleName.isEmpty {
             alertType = .emptyName
@@ -171,12 +171,13 @@ struct WelcomeViewAddVehicle: View {
             alertType = .emptyModel
             showAlert = true
         } else {
-            
+
             let newVehicle = Vehicle(name: vehicleName, make: vehicleMake, model: vehicleModel)
-            
+
             Task {
                 do {
                     try await viewModel.addVehicle(newVehicle)
+                    print("Vehicle \(newVehicle.name) added to firebase successfully!")
                     alertType = .vehicleAdded(name: vehicleName)
                     showAlert = true
                 } catch {
@@ -190,7 +191,7 @@ struct WelcomeViewAddVehicle: View {
 
 struct TextFieldClearButton: ViewModifier {
     @Binding var text: String
-    
+
     func body(content: Content) -> some View {
         content
             .overlay {
